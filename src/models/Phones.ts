@@ -22,7 +22,7 @@ const PhonesSchema = new mongoose.Schema({
   model: {
     type: String,
     required: [true, 'Please enter model name'],
-    index: true,
+    unique: true,
   },
   brand: { type: String },
   price: {

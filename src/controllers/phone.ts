@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import PhoneService from '../services/phone'
 import { BadRequestError } from '../helpers/apiError'
-import Phones from '../models/Phones'
+import PhoneModel, { PhoneDocument } from '../models/Phones'
 
 //Create Product
 export const createProduct = async (
@@ -11,9 +11,8 @@ export const createProduct = async (
 ) => {
   try {
     console.log('BODY********:', req.body)
-    //const product = await Phones.create(req.body)
-    const product = await PhoneService.create(req.body)
-    //console.log('Product******:', product)
+    const phone = new PhoneModel(req.body)
+    const product = await PhoneService.create(phone as PhoneDocument)
     res.status(201).json({ success: true, product })
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
