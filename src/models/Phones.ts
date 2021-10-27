@@ -18,7 +18,7 @@ export type PhoneDocument = Document & {
   reviews?: reviewType[]
 }
 
-const PhonesSchema = new mongoose.Schema({
+const PhonesSchema = new mongoose.Schema<PhoneDocument>({
   model: {
     type: String,
     required: [true, 'Please enter model name'],
