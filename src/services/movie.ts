@@ -1,5 +1,5 @@
 import Movie, { MovieDocument } from '../models/Movie'
-import { NotFoundError } from '../helpers/apiError'
+import { NotFoundError } from '../middlewares/apiErrorHandler'
 
 const create = async (movie: MovieDocument): Promise<MovieDocument> => {
   return movie.save()

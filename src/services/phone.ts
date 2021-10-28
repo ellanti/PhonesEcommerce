@@ -1,5 +1,5 @@
 import Phones, { PhoneDocument } from '../models/Phones'
-import { NotFoundError } from '../helpers/apiError'
+import { NotFoundError } from '../middlewares/apiErrorHandler'
 
 const createPhone = async (phone: PhoneDocument): Promise<PhoneDocument> => {
   return phone.save()
@@ -30,8 +30,8 @@ const deletePhone = async (phoneId: string): Promise<PhoneDocument> => {
   }
 }
 
-const getAllPhones = async (): Promise<PhoneDocument[]> => {
-  const phones = await Phones.find()
+const getAllPhones = async (queryString: Record<string, any>): Promise<PhoneDocument[]> => {
+  const phones = await Phones.find(queryString)
   return phones as PhoneDocument[]
 }
 

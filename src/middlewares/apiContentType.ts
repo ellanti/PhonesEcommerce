@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 
-import { BadRequestError } from '../helpers/apiError'
+import { BadRequestError } from '../middlewares/apiErrorHandler'
 
 export default function (req: Request, res: Response, next: NextFunction) {
   if (

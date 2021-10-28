@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from 'express'
 import PhoneService from '../services/phone'
-import { BadRequestError } from '../helpers/apiError'
 import PhoneModel, { PhoneDocument } from '../models/Phones'
 import catchAsyncError from '../middlewares/catchAsyncErrors'
+import { search, filter, productQueryParam } from '../helpers/apiFeatures'
+import { findAll } from './movie'
 
 //Create Product -Admin
 export const createProduct = catchAsyncError(
@@ -16,7 +17,14 @@ export const createProduct = catchAsyncError(
 // View products - Admin & User
 export const getAllPhones = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.json(await PhoneService.getAllPhones())
+    const queryParam = req.query
+    const searchQuery = search(queryParam as productQueryParam)
+    const filterQuery = filter(queryParam as productQueryParam)
+    const phones = await PhoneService.getAllPhones({
+      ...searchQuery,
+      ...filterQuery,
+    })
+    res.json({ success: true, phones })
   }
 )
 

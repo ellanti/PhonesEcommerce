@@ -1,5 +1,5 @@
 import Users, { UserDocument } from '../models/Users'
-import { NotFoundError } from '../helpers/apiError'
+import { NotFoundError } from '../middlewares/apiErrorHandler'
 
 const create = async (user: UserDocument): Promise<UserDocument> => {
   return user.save()
