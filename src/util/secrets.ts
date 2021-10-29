@@ -17,6 +17,9 @@ const prod = ENVIRONMENT === 'production' // Anything else is treated as 'dev'
 export const CLIENT_ID = process.env.GOOGLE_CLIENT_ID as string
 
 export const JWT_SECRET = process.env['JWT_SECRET'] as string
+export const JWT_EXPIRE = process.env['JWT_EXPIRE'] as string
+export const COOKIE_EXPIRE = process.env['COOKIE_EXPIRE'] as unknown as number
+
 export const MONGODB_URI = (
   prod ? process.env['MONGODB_URI'] : process.env['MONGODB_URI_LOCAL']
 ) as string

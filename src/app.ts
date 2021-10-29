@@ -3,6 +3,7 @@ import lusca from 'lusca'
 import dotenv from 'dotenv'
 import passport from 'passport'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 
 import googleAuthRouter from './routers/googleAuthRouter'
 import movieRouter from './routers/movie'
@@ -25,6 +26,7 @@ app.use(express.json())
 app.use(lusca.xframe('SAMEORIGIN'))
 app.use(lusca.xssProtection(true))
 app.use(cors())
+app.use(cookieParser())
 app.use(passport.initialize())
 
 //passport strategies

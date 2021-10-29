@@ -1,20 +1,19 @@
 import express from 'express'
+import { isAuthenticatedUser } from '../middlewares/authenticated'
 
 import {
-  create,
-  findAll,
-  // findById,
-  // delete,
-  // update,
+  registerUser,
+  loginUser,
+  logoutUser,
+  getUserDetails,
 } from '../controllers/user'
 
 const router = express.Router()
 
 // Every path we define here will get /api/v1/users prefix
-router.get('/', findAll)
-//router.get('/:userId', findById)
-//router.put('/:userId', update)
-//router.delete('/:userId', delete)
-router.post('/', create)
+router.post('/register', registerUser)
+router.post('/login', loginUser)
+router.post('/logout', logoutUser)
+router.get('/me', isAuthenticatedUser, getUserDetails)
 
 export default router

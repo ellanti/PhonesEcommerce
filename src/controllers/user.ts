@@ -1,53 +1,69 @@
 import { Request, Response, NextFunction } from 'express'
 
-import UserModel from '../models/Users'
+import UserModel, { UserDocument } from '../models/Users'
 import UserService from '../services/user'
-import catchAsyncError from '../middlewares/catchAsyncErrors'
+import {
+  BadRequestError,
+  UnauthorizedError,
+} from '../middlewares/apiErrorHandler'
+import getJwtToken from '../helpers/getJwtToken'
+import catchAsyncErrors from '../middlewares/catchAsyncErrors'
 
-// GET /movies
-export const findAll = catchAsyncError(
+// GET /users
+export const findAll = catchAsyncErrors(
   async (req: Request, res: Response, next: NextFunction) => {
     res.json(await UserService.findAll())
   }
 )
 
-// POST /movies
-export const create = catchAsyncError(
+// POST /users
+export const registerUser = catchAsyncErrors(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { firstName, lastName, email, phoneNumber, address } = req.body
+    const { firstName, lastName, email, password } = req.body
     const user = new UserModel({
       firstName,
       lastName,
       email,
-      phoneNumber,
-      address,
+      password,
     })
-    await UserService.create(user)
-    res.json(user)
+    const newUser = await UserService.create(user)
+    getJwtToken(newUser, res)
   }
 )
 
-// GET /users/:userId
-export const findById = catchAsyncError(
+export const loginUser = catchAsyncErrors(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.json(await UserService.findById(req.params.movieId))
+    const { email, password } = req.body
+    if (!email || !password) {
+      return next(new BadRequestError('Please Enter Email or Password'))
+    }
+    const user = await UserService.findByEmail(email)
+    if (!user) {
+      return next(new UnauthorizedError('Invalid Email or Password'))
+    }
+    const passwordMatch = await user.comparePassword(password)
+    if (!passwordMatch) {
+      return next(new UnauthorizedError('Invalid Email or Password'))
+    }
+
+    getJwtToken(user, res)
   }
 )
 
-// PUT /users/:userId
-export const updateUser = catchAsyncError(
+export const logoutUser = catchAsyncErrors(
   async (req: Request, res: Response, next: NextFunction) => {
-    const update = req.body
-    const userId = req.params.userId
-    const updatedUser = await UserService.update(userId, update)
-    res.json(updatedUser)
+    res
+      .cookie('token', '', {
+        expires: new Date(Date.now()),
+        httpOnly: true,
+      })
+      .json({ success: 'true', message: 'Logged out' })
   }
 )
 
-// DELETE /users/:userId
-export const deleteUser = catchAsyncError(
+export const getUserDetails = catchAsyncErrors(
   async (req: Request, res: Response, next: NextFunction) => {
-    await UserService.deleteUser(req.params.userId)
-    res.status(204).end()
+    const user = req.user as UserDocument
+    res.json({ success: true, user })
   }
 )

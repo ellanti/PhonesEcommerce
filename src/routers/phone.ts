@@ -1,4 +1,5 @@
 import express from 'express'
+import { isAuthenticatedUser, isAuthorized } from '../middlewares/authenticated'
 import {
   createProduct,
   getAllPhones,
@@ -8,10 +9,10 @@ import {
 } from '../controllers/phone'
 
 const router = express.Router()
-router.get('/', getAllPhones)
+router.get('/', isAuthenticatedUser, isAuthorized('admin'), getAllPhones)
 router.get('/phone/:phoneId', getPhone)
-router.post('/', createProduct)
-router.put('/:phoneId', updateProduct)
-router.post('/:phoneId', deleteProduct)
+router.post('/', isAuthenticatedUser, createProduct)
+router.put('/:phoneId', isAuthenticatedUser, updateProduct)
+router.post('/:phoneId', isAuthenticatedUser, deleteProduct)
 
 export default router

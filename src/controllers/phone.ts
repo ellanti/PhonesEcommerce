@@ -2,8 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import PhoneService from '../services/phone'
 import PhoneModel, { PhoneDocument } from '../models/Phones'
 import catchAsyncError from '../middlewares/catchAsyncErrors'
-import { search, filter, productQueryParam } from '../helpers/apiFeatures'
-import { findAll } from './movie'
+import { search, filter, ProductQueryParam } from '../helpers/apiFeatures'
 
 //Create Product -Admin
 export const createProduct = catchAsyncError(
@@ -18,12 +17,17 @@ export const createProduct = catchAsyncError(
 export const getAllPhones = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     const queryParam = req.query
-    const searchQuery = search(queryParam as productQueryParam)
-    const filterQuery = filter(queryParam as productQueryParam)
-    const phones = await PhoneService.getAllPhones({
-      ...searchQuery,
-      ...filterQuery,
-    })
+    const searchQuery = search(queryParam as ProductQueryParam)
+    const filterQuery = filter(queryParam as ProductQueryParam)
+    const currentPage = (queryParam as ProductQueryParam).page as number | 1
+    const productsPerPage = 1
+    const skip = (currentPage - 1) * productsPerPage
+
+    const phones = await PhoneService.getAllPhones(
+      { ...searchQuery, ...filterQuery },
+      productsPerPage,
+      skip
+    )
     res.json({ success: true, phones })
   }
 )

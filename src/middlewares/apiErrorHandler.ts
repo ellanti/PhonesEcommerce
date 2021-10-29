@@ -53,6 +53,18 @@ export default function (
     error = new BadRequestError('Invalid Request', error)
   }
 
+  // Mongoose duplicate key error
+  if (error.name === 'MONGO_DUPLICATE') {
+    error = new BadRequestError('User Already exists', error)
+  }
+
+  if (
+    error.name === 'JsonWebTokenError' ||
+    error.name === 'TokenExpiredError'
+  ) {
+    error = new BadRequestError('Token Invalid', error)
+  }
+
   res.status(error.statusCode).json({
     success: false,
     status: error.statusCode,

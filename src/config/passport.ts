@@ -13,7 +13,9 @@ export const googleStrategy = new GoogleTokenStrategy(
       firstName: `${given_name}`,
       lastName: `${family_name}`,
       email: `${email}`,
+      password: `${email}`,
     }
+    console.log('SENDING user details from google strategy')
     done(null, user) // error and object to be passed to next
   }
 )

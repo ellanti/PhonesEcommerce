@@ -1,14 +1,13 @@
-import { Request, Response, NextFunction } from 'express'
-import { JWT_SECRET } from '../util/secrets'
-import jwt from 'jsonwebtoken'
+import { Request, Response } from 'express'
 import Users, { UserDocument } from '../models/Users'
 import UserService from '../services/user'
+import getJwtToken from '../helpers/getJwtToken'
 
 const googleAuth = async (req: Request, res: Response) => {
   const userData = req.user as UserDocument
-  const { firstName, lastName, email } = userData
+  const email = userData.email
 
-  // Checking if the user already exists
+  // Checking if the google user already exists
   if (email) {
     Users.findOne({ email }).exec(async (err, user) => {
       if (err) {
@@ -16,19 +15,15 @@ const googleAuth = async (req: Request, res: Response) => {
           .status(400)
           .json({ error: 'Something went wrong with user authentication' })
       } else {
+        let token
         if (!user) {
           // if user does not exists
-          const newUser = new Users({ firstName, lastName, email })
-          await UserService.create(newUser)
-          const token = jwt.sign({ _id: newUser._id }, JWT_SECRET, {
-            expiresIn: '2h',
-          })
-          res.json({ token, userData })
+          const newUserModel = new Users(userData)
+          const newUser = await UserService.create(newUserModel)
+          token = getJwtToken(newUser, res)
         } else {
-          const token = jwt.sign({ _id: user._id }, JWT_SECRET, {
-            expiresIn: '2h',
-          })
-          res.json({ token, userData })
+          token = getJwtToken
+          res.json({ userData, token })
         }
       }
     })

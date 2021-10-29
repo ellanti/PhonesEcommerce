@@ -30,8 +30,15 @@ const deletePhone = async (phoneId: string): Promise<PhoneDocument> => {
   }
 }
 
-const getAllPhones = async (queryString: Record<string, any>): Promise<PhoneDocument[]> => {
-  const phones = await Phones.find(queryString)
+const getAllPhones = async (
+  queryString: Object,
+  limit?: number,
+  skip?: number
+): Promise<PhoneDocument[]> => {
+  const phones =
+    limit && skip
+      ? await Phones.find(queryString).limit(limit).skip(skip)
+      : await Phones.find(queryString)
   return phones as PhoneDocument[]
 }
 
