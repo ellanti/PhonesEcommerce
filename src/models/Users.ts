@@ -66,7 +66,9 @@ UserSchema.methods.jwtToken = function () {
   })
 }
 
-UserSchema.methods.comparePassword = async function (password) {
+UserSchema.methods.comparePassword = async function (
+  password
+): Promise<boolean> {
   return await bcrypt.compare(password, this.password)
 }
 

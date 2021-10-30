@@ -9,12 +9,23 @@ const findAll = async (): Promise<UserDocument[]> => {
   return Users.find().sort({ name: 1 })
 }
 
-const findByEmail = async (email: string): Promise<UserDocument | null> => {
-  return Users.findOne({ email }).select('+password')
+const findByEmail = async (
+  email: string,
+  password?: boolean
+): Promise<UserDocument | null> => {
+  const user = password
+    ? await Users.findOne({ email }).select('+password')
+    : await Users.findOne({ email })
+  return user
 }
 
-const findById = async (userId: string): Promise<UserDocument> => {
-  const foundUser = await Users.findById(userId)
+const findById = async (
+  userId: string,
+  password?: boolean
+): Promise<UserDocument> => {
+  const foundUser = !password
+    ? await Users.findById(userId)
+    : await Users.findById(userId).select('+password')
 
   if (!foundUser) {
     throw new NotFoundError(`Movie ${userId} not found`)

@@ -31,7 +31,7 @@ const deletePhone = async (phoneId: string): Promise<PhoneDocument> => {
 }
 
 const getAllPhones = async (
-  queryString: Object,
+  queryString: Record<string, any>,
   limit?: number,
   skip?: number
 ): Promise<PhoneDocument[]> => {

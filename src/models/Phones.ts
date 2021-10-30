@@ -1,7 +1,10 @@
 import mongoose, { Document } from 'mongoose'
+import { UserDocument } from './Users'
 import { Variants } from './Variants'
 
 type reviewType = {
+  _id?: mongoose.Types.ObjectId
+  user: UserDocument
   name: string
   rating: number
   comment: string
@@ -45,6 +48,7 @@ const PhonesSchema = new mongoose.Schema<PhoneDocument>({
   },
   reviews: [
     {
+      user: { type: mongoose.Schema.Types.ObjectId, ref: 'Users' },
       name: { type: String, required: true },
       rating: { type: Number, required: true },
       comment: { type: String, required: true },

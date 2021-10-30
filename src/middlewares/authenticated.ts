@@ -3,13 +3,12 @@ import { ForbiddenError, UnauthorizedError } from './apiErrorHandler'
 import catchAsyncError from './catchAsyncErrors'
 import { verify } from 'jsonwebtoken'
 import { JWT_SECRET } from '../util/secrets'
-import UserService from '../services/user'
+import UserService from '../services/userService'
 import { UserDocument } from '../models/Users'
 
 export const isAuthenticatedUser = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
     const { token } = req.cookies
-    console.log('Token:', token)
     if (!token) {
       return next(new UnauthorizedError('Please login'))
     }

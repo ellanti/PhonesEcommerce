@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import Users, { UserDocument } from '../models/Users'
-import UserService from '../services/user'
+import UserService from '../services/userService'
 import getJwtToken from '../helpers/getJwtToken'
 
 const googleAuth = async (req: Request, res: Response) => {

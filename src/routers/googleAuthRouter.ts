@@ -1,6 +1,6 @@
 import express from 'express'
 import passport from 'passport'
-import googleAuth from '../controllers/googleAuth'
+import googleAuth from '../controllers/googleAuthController'
 
 const router = express.Router()
 

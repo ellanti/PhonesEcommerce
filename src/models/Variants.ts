@@ -1,9 +1,13 @@
 import mongoose, { Document } from 'mongoose'
-import BatterySchema, { Battery } from './Battery'
-import CamSchema, { Camera } from './Camera'
-import PhysicalAttrSchema, { PhysicalAttributes } from './PhysicalAttributes'
-import SimSchema, { Sim } from './Sim'
-import SoftwareAttrSchema, { SoftwareAttributes } from './SoftwareAttributes'
+import BatterySchema, { Battery } from './Phonedetails/Battery'
+import CamSchema, { Camera } from './Phonedetails/Camera'
+import PhysicalAttrSchema, {
+  PhysicalAttributes,
+} from './Phonedetails/PhysicalAttributes'
+import SimSchema, { Sim } from './Phonedetails/Sim'
+import SoftwareAttrSchema, {
+  SoftwareAttributes,
+} from './Phonedetails/SoftwareAttributes'
 
 export type Variants = Document & {
   physicalAttributes: PhysicalAttributes
