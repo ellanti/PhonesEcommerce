@@ -1,5 +1,5 @@
 import express from 'express'
-import { isAuthenticatedUser, isAuthorized } from '../middlewares/authenticated'
+import { isAuthenticatedUser } from '../middlewares/authenticated'
 
 import {
   registerUser,
@@ -9,6 +9,12 @@ import {
   updatePassword,
   updateProfile,
 } from '../controllers/userController'
+
+import {
+  newOrder,
+  getUserOrders,
+  getSingleOrder,
+} from '../controllers/orderController'
 
 const router = express.Router()
 
@@ -20,5 +26,8 @@ router
   .get('/me', isAuthenticatedUser, getUserDetails)
   .put('/password', isAuthenticatedUser, updatePassword)
   .put('/me', isAuthenticatedUser, updateProfile)
+  .post('/order', isAuthenticatedUser, newOrder)
+  .get('/orders/me', isAuthenticatedUser, getUserOrders)
+  .get('/order/:id', isAuthenticatedUser, getSingleOrder)
 
 export default router

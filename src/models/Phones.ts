@@ -2,7 +2,7 @@ import mongoose, { Document } from 'mongoose'
 import { UserDocument } from './Users'
 import { Variants } from './Variants'
 
-type reviewType = {
+export type reviewType = {
   _id?: mongoose.Types.ObjectId
   user: UserDocument
   name: string

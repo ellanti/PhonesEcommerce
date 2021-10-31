@@ -1,6 +1,5 @@
 import mongoose, { Document } from 'mongoose'
 import AddressSchema, { Address } from './Address'
-import { PhoneDocument } from './Phones'
 import { JWT_SECRET, JWT_EXPIRE } from '../util/secrets'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
@@ -13,7 +12,7 @@ export type UserAttributes = {
   password: string
   phoneNumber: number
   address: Address[]
-  orderHistory: PhoneDocument[]
+  orderHistory: mongoose.Schema.Types.ObjectId[]
 }
 
 export type UserDocument = UserAttributes &
@@ -49,7 +48,7 @@ const UserSchema = new mongoose.Schema<UserDocument>({
   role: { type: String, default: 'user' },
   phoneNumber: { type: Number },
   address: { type: [AddressSchema] }, // address as embedded document
-  orderHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Phones' }],
+  orderHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
 })
 
 UserSchema.pre('save', async function (next) {
