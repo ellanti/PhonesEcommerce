@@ -1,33 +1,27 @@
-import AppBar from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import Container from '@mui/material/Container'
+import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
 
-const FooterInfo = styled('div')({
-  width: '20%',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-})
-
-const PageFooter = styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'center',
+const StyledP = styled('p')({
+  marginTop: '0px',
+  marginBottom: '0px',
 })
 function Footer() {
   return (
-    <AppBar position="static" color="primary">
-      <PageFooter>
-        <FooterInfo>
-          <h3>ECOM_PHONES</h3>
-          <p>Connecting People</p>
-          <p>Copyrights 2021 &copy; Ecom-Phones</p>
-        </FooterInfo>
-      </PageFooter>
-    </AppBar>
+    <Box
+      sx={{
+        backgroundColor: '#fff176',
+        bottom: '0px',
+        position: 'absolute',
+        maxWidth: 'fixed',
+        width: '100%',
+      }}
+    >
+      <Box display="flex" flexDirection="column" alignItems="center">
+        <h3>ECOM_PHONES</h3>
+        <StyledP>Connecting People</StyledP>
+        <StyledP>Copyrights 2021 &copy; Ecom-Phones</StyledP>
+      </Box>
+    </Box>
   )
 }
 
