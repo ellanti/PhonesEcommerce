@@ -1,30 +1,17 @@
 import axios from 'axios'
-import {
-  createTheme,
-  ThemeProvider,
-  responsiveFontSizes,
-} from '@mui/material/styles'
-import { green, purple } from '@mui/material/colors'
 import GoogleLogin from 'react-google-login'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Header from './component/layout/Header'
 import Footer from './component/layout/Footer'
+import Home from './component/Home/Home'
+import { Provider } from 'react-redux'
+import store from './redux/store'
+import PhonePage from './component/Phone/PhonePage'
 
 axios.defaults.baseURL = 'http://localhost:5000/api/v1'
 type Response = {
   token: string
 }
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#fff176',
-    },
-    secondary: {
-      main: '#212121',
-    },
-  },
-})
 
 function App() {
   // const responseGoogle = async (response: any) => {
@@ -54,12 +41,16 @@ function App() {
   // )
 
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
+    <div>
+      <Provider store={store}>
         <Header />
+        <Router>
+          <Route exact path="/" component={Home} />
+          <Route path="/phone/:phoneId" component={PhonePage} />
+        </Router>
         <Footer />
-      </Router>
-    </ThemeProvider>
+      </Provider>
+    </div>
   )
 }
 

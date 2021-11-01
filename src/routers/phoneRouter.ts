@@ -10,7 +10,7 @@ import {
 
 const router = express.Router()
 router
-  .get('/', isAuthenticatedUser, isAuthorized('admin'), getAllProducts)
+  .get('/', getAllProducts)
   .get('/phone/:phoneId', getProduct)
   .post('/', isAuthenticatedUser, createProduct)
   .put('/:phoneId', isAuthenticatedUser, updateProduct)

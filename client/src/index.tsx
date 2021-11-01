@@ -4,6 +4,7 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import axios from 'axios'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 axios.interceptors.request.use((request) => {
   // Get jwt token from localstorage
@@ -28,10 +29,19 @@ axios.interceptors.response.use(
     return Promise.reject(error)
   }
 )*/
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#212121',
+    },
+  },
+})
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )
