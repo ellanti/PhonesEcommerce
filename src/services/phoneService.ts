@@ -1,5 +1,6 @@
 import Phones, { PhoneDocument } from '../models/Phones'
 import { NotFoundError } from '../middlewares/apiErrorHandler'
+import { isInteger } from 'lodash'
 
 const createPhone = async (phone: PhoneDocument): Promise<PhoneDocument> => {
   return phone.save()
@@ -36,7 +37,7 @@ const getAllPhones = async (
   skip?: number
 ): Promise<PhoneDocument[]> => {
   const phones =
-    limit && skip
+    limit !== undefined && skip !== undefined
       ? await Phones.find(queryString).limit(limit).skip(skip)
       : await Phones.find(queryString)
   return phones as PhoneDocument[]

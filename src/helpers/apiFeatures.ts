@@ -5,7 +5,8 @@ type FilterParam = {
   gte?: number
 }
 export type ProductQueryParam = {
-  [key: string]: string | FilterParam | number | undefined
+  [key: string]: string
+  // [key: string]: string | FilterParam | number | undefined
 }
 
 export const search = (queryParam: ProductQueryParam): Record<string, any> => {

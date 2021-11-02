@@ -7,6 +7,9 @@ import { Product, ProductsResponse } from '../../redux/Products/ProductsTypes'
 import Loader from '../layout/Loader/Loader'
 import ErrorPage from '../layout/Error'
 import { useParams } from 'react-router'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchUrl } from '../../redux/Products/ProductsAction'
+import { RootState } from '../../redux/store'
 
 const StyledDiv = styled('div')({
   display: 'flex',
@@ -21,30 +24,32 @@ const StyledDiv = styled('div')({
   },
 })
 
-const StyledPagination = styled(Pagination)({ marginLeft: '38vw' })
+const StyledPagination = styled(Pagination)({
+  marginLeft: '38vw',
+  marginBottom: '10vh',
+})
 
 const BASE_HOME_URL = 'http://localhost:5000/api/v1/phones/'
 
 function Home() {
+  const dispatch = useDispatch()
   let { keyword = '' }: { keyword: any } = useParams()
   const [page, setPage] = useState(1)
-
   const setPageNo = (event: ChangeEvent<unknown>, value: number) => {
     setPage(value)
     console.log('PageNumber:', page)
   }
-  console.log('PageNumber:', page)
+
   const url = `${BASE_HOME_URL}?keyword=${keyword}&page=${page}`
+  console.log('url:', url)
+
   useEffect(() => {
-    if (keyword) {
-      console.log('changeinkeyword')
-    }
-    if (page) {
-      console.log('changeinpage')
-    }
-  }, [keyword, page])
+    dispatch(fetchUrl(url))
+  }, [dispatch, keyword, page])
+  // const ProductsState = useFetchUrl(url)
+
   //const url = `BASE_HOME_URL?keyword=${keyword}&page=${page}&price[gte]=${priceStart}&price[lte]=${priceEnd}}`
-  const ProductsState = useFetchUrl(url)
+  const ProductsState = useSelector((state: RootState) => state.product)
   const { loading, data, error } = ProductsState
 
   let products: Product[] = []
@@ -72,7 +77,7 @@ function Home() {
             shape="rounded"
             variant="outlined"
             page={page}
-            onChange={() => setPageNo}
+            onChange={setPageNo}
           />
         </div>
       ) : (

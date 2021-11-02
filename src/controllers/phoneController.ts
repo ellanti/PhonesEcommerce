@@ -18,11 +18,11 @@ export const createProduct = catchAsyncError(
 // View products - Admin & User
 export const getAllProducts = catchAsyncError(
   async (req: Request, res: Response, next: NextFunction) => {
-    const queryParam = req.query
-    const searchQuery = search(queryParam as ProductQueryParam)
-    const filterQuery = filter(queryParam as ProductQueryParam)
-    const currentPage = (queryParam as ProductQueryParam).page as number | 1
-    const productsPerPage = 3
+    const queryParam = req.query as ProductQueryParam
+    const productsPerPage = 6
+    const searchQuery = search(queryParam)
+    const filterQuery = filter({ ...queryParam })
+    const currentPage = Number(queryParam.page)
     const skip = (currentPage - 1) * productsPerPage
     const phones = await PhoneService.getAllPhones(
       { ...searchQuery, ...filterQuery },
