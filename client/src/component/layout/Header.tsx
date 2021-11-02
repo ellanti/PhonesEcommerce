@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useState } from 'react'
 import { styled, alpha } from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -9,11 +9,11 @@ import InputBase from '@mui/material/InputBase'
 import Badge from '@mui/material/Badge'
 import MenuItem from '@mui/material/MenuItem'
 import Menu from '@mui/material/Menu'
-import MenuIcon from '@mui/icons-material/Menu'
 import SearchIcon from '@mui/icons-material/Search'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import MoreIcon from '@mui/icons-material/More'
+import { RouteComponentProps, withRouter } from 'react-router'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -31,22 +31,16 @@ const Search = styled('div')(({ theme }) => ({
   },
 }))
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}))
+const SearchIconButton = styled(IconButton)({
+  backgroundColor: 'grey',
+  marginLeft: '0px',
+})
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    paddingLeft: '1em',
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
@@ -55,29 +49,29 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }))
 
-export default function PrimarySearchAppBar() {
+type PrimarySearchProps = RouteComponentProps
+const PrimarySearchAppBar: React.FC<PrimarySearchProps> = ({ history }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
-    React.useState<null | HTMLElement>(null)
+  const [keyword, setKeyword] = useState('')
 
   const isMenuOpen = Boolean(anchorEl)
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
+
+  const searchHandler = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault()
+    if (keyword.trim()) {
+      history.push(`/phones/${keyword}`)
+    } else {
+      history.push('/')
+    }
+    setKeyword('')
+  }
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null)
-  }
-
   const handleMenuClose = () => {
     setAnchorEl(null)
-    handleMobileMenuClose()
-  }
-
-  const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setMobileMoreAnchorEl(event.currentTarget)
   }
 
   const menuId = 'primary-search-account-menu'
@@ -102,60 +96,11 @@ export default function PrimarySearchAppBar() {
     </Menu>
   )
 
-  const mobileMenuId = 'primary-search-account-menu-mobile'
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={0} color="error">
-            <ShoppingCartIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  )
-
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
             <Typography
               variant="h6"
               noWrap
@@ -165,14 +110,21 @@ export default function PrimarySearchAppBar() {
               ECOM-PHONES
             </Typography>
             <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
               />
             </Search>
+            <SearchIconButton
+              aria-label="search"
+              color="inherit"
+              onClick={searchHandler}
+            >
+              <SearchIcon />
+            </SearchIconButton>
+
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <IconButton
@@ -201,9 +153,7 @@ export default function PrimarySearchAppBar() {
               <IconButton
                 size="large"
                 aria-label="show more"
-                aria-controls={mobileMenuId}
                 aria-haspopup="true"
-                onClick={handleMobileMenuOpen}
                 color="inherit"
               >
                 <MoreIcon />
@@ -211,9 +161,11 @@ export default function PrimarySearchAppBar() {
             </Box>
           </Toolbar>
         </AppBar>
-        {renderMobileMenu}
+
         {renderMenu}
       </Box>
     </div>
   )
 }
+
+export default withRouter(PrimarySearchAppBar)

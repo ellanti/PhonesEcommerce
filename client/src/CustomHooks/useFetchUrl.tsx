@@ -7,10 +7,8 @@ function useFetchUrl(url: string) {
   const ProductsState = useSelector((state: RootState) => state.product)
   const dispatch = useDispatch()
   useEffect(() => {
-    console.log('In Use effect')
     dispatch(fetchUrl(url))
   }, [dispatch])
-  console.log('FetchURl State:', ProductsState)
   return ProductsState
 }
 

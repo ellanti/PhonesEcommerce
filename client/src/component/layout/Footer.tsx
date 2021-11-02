@@ -7,7 +7,7 @@ function Footer() {
         display="flex"
         flexDirection="column"
         alignItems="center"
-        sx={{ backgroundColor: '#212121', color: 'white' }}
+        sx={{ backgroundColor: '#212121', color: 'white', bottom: '0px' }}
       >
         <h3>ECOM_PHONES</h3>
         <p>Connecting People</p>

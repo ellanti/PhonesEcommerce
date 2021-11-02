@@ -43,12 +43,13 @@ function App() {
   return (
     <div>
       <Provider store={store}>
-        <Header />
         <Router>
+          <Header />
           <Route exact path="/" component={Home} />
           <Route path="/phone/:phoneId" component={PhonePage} />
+          <Route path="/phones/:keyword" component={Home} />
         </Router>
-        <Footer />
+        {/* <Footer /> */}
       </Provider>
     </div>
   )

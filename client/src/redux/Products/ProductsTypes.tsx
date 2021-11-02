@@ -4,7 +4,7 @@ export const URL_FETCH_FAILURE = 'URL_FETCH_FAILURE'
 
 export type urlState = {
   loading: boolean
-  data: PhoneType
+  data: any
   error: string
 }
 
@@ -25,4 +25,8 @@ export type ReviewType = {
   comment: string
   productId: string
 }
-export type PhoneType = Product | Product[]
+export type ProductsResponse = {
+  phones: Product[]
+  productsPerPage: number
+  productsCount: number
+}

@@ -8,7 +8,7 @@ import { AllActions } from './ProductsAction'
 
 export const urlInitialState: urlState = {
   loading: false,
-  data: [],
+  data: null,
   error: '',
 }
 

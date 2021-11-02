@@ -22,16 +22,15 @@ export const getAllProducts = catchAsyncError(
     const searchQuery = search(queryParam as ProductQueryParam)
     const filterQuery = filter(queryParam as ProductQueryParam)
     const currentPage = (queryParam as ProductQueryParam).page as number | 1
-    const productsPerPage = 1
+    const productsPerPage = 3
     const skip = (currentPage - 1) * productsPerPage
-
-    res.json(
-      await PhoneService.getAllPhones(
-        { ...searchQuery, ...filterQuery },
-        productsPerPage,
-        skip
-      )
+    const phones = await PhoneService.getAllPhones(
+      { ...searchQuery, ...filterQuery },
+      productsPerPage,
+      skip
     )
+    const productsCount = phones.length
+    res.json({ phones, productsPerPage, productsCount })
   }
 )
 

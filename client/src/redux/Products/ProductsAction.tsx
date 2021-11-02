@@ -4,7 +4,6 @@ import {
   URL_FETCH_FAILURE,
   URL_FETCH_SUCCESS,
   URL_FETCH_REQUEST,
-  PhoneType,
 } from './ProductsTypes'
 
 type GenericAction<T> = {
@@ -16,10 +15,7 @@ type GenericActionWithPayload<T, K> = {
 }
 
 type FetchUrlRequest = GenericAction<typeof URL_FETCH_REQUEST>
-type FetchUrlSuccess = GenericActionWithPayload<
-  typeof URL_FETCH_SUCCESS,
-  PhoneType
->
+type FetchUrlSuccess = GenericActionWithPayload<typeof URL_FETCH_SUCCESS, any>
 type FetchUrlFailure = GenericActionWithPayload<
   typeof URL_FETCH_FAILURE,
   string
@@ -33,7 +29,7 @@ const fetchUrlRequest = () => {
   }
 }
 
-const fetchUrlSuccess = (response: PhoneType) => {
+const fetchUrlSuccess = (response: any) => {
   return {
     type: URL_FETCH_SUCCESS,
     payload: response,
@@ -53,7 +49,7 @@ export const fetchUrl = (url: string) => {
     axios
       .get(url)
       .then((res) => {
-        const response = res.data as PhoneType
+        const response = res.data as any
         dispatch(fetchUrlSuccess(response))
       })
       .catch((err) => {
