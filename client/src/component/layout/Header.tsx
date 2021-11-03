@@ -14,6 +14,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import MoreIcon from '@mui/icons-material/More'
 import { RouteComponentProps, withRouter } from 'react-router'
+import Slider from '@mui/material/Slider'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -34,6 +35,7 @@ const Search = styled('div')(({ theme }) => ({
 const SearchIconButton = styled(IconButton)({
   backgroundColor: 'grey',
   marginLeft: '0px',
+  marginRight: '3em',
 })
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -48,11 +50,37 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }))
+const StyledSlider = styled(Slider)({
+  marginTop: '50px',
+  paddingTop: '10px',
+  color: 'grey',
+})
+
+const marks = [
+  {
+    value: 1,
+    label: '1',
+  },
+
+  {
+    value: 1000,
+    label: '100',
+  },
+]
 
 type PrimarySearchProps = RouteComponentProps
 const PrimarySearchAppBar: React.FC<PrimarySearchProps> = ({ history }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [keyword, setKeyword] = useState('')
+  const [priceRange, setPriceRange] = React.useState<number[]>([20, 37])
+
+  const handlePriceRange = (event: Event, newValue: number | number[]) => {
+    setPriceRange(newValue as number[])
+  }
+
+  function priceValueText(value: number) {
+    return `${value}€`
+  }
 
   const isMenuOpen = Boolean(anchorEl)
 
@@ -124,7 +152,21 @@ const PrimarySearchAppBar: React.FC<PrimarySearchProps> = ({ history }) => {
             >
               <SearchIcon />
             </SearchIconButton>
-
+            <Box sx={{ width: 200, color: 'white' }}>
+              <StyledSlider
+                size="small"
+                aria-labelledby="track-inverted-slider"
+                getAriaLabel={() => 'Price range'}
+                value={priceRange}
+                onChange={handlePriceRange}
+                getAriaValueText={priceValueText}
+                step={1}
+                valueLabelDisplay="auto"
+                marks
+                min={1}
+                max={1000}
+              />
+            </Box>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <IconButton
