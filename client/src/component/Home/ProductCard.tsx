@@ -3,7 +3,7 @@ import Rating from '@mui/material/Rating'
 import { styled } from '@mui/material/styles'
 
 const PhoneDetails = styled('div')({
-  width: '23vw',
+  width: '30vw',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
