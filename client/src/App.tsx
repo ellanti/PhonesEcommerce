@@ -4,9 +4,11 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Header from './component/layout/Header'
 import Footer from './component/layout/Footer'
 import Home from './component/Home/Home'
+import Home1 from './component/Home1'
 import { Provider } from 'react-redux'
 import store from './redux/store'
 import PhonePage from './component/Phone/PhonePage'
+import NavBar from './component/responsive/NavBar'
 
 axios.defaults.baseURL = 'http://localhost:5000/api/v1'
 type Response = {
@@ -44,8 +46,9 @@ function App() {
     <div>
       <Provider store={store}>
         <Router>
-          <Header />
-          <Route exact path="/" component={Home} />
+          <NavBar />
+          <Route exact path="/" component={Home1} />
+          {/* <Route exact path="/" component={Home} /> */}
           <Route path="/phone/:phoneId" component={PhonePage} />
           <Route path="/phones/:keyword" component={Home} />
         </Router>
