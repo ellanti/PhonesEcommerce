@@ -6,54 +6,64 @@ import User from '../NavElements/User'
 
 const NavBarContainer = styled.div`
   width: 100%;
-  height: 60px;
-  box-shadow: 0 1px 3px rgba(15, 15, 15, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  min-width: 240px;
+  overflow: hidden;
   background: #1d426f;
-  @media (max-width: 768px) {
-    height: 90px;
-    flex-direction: row;
-    flex-wrap: wrap;
-    flex: 50%;
+  height: 90px;
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+`
+const NavDeskContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+`
+
+const NavMobContainer = styled.div`
+  display: none;
+  width: 100%;
+  @media (max-width: 540px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `
 const LeftSection = styled.div`
   display: flex;
-  padding: 6px 12px;
-  @media (max-width: 768px) {
-    order: 1;
-  }
+  padding: 3px 6px;
 `
 const MiddleSection = styled.div`
   display: flex;
-  @media (max-width: 768px) {
-    order: 3;
-    flex: 1 0 100%;
+  @media (max-width: 540px) {
+    display: none;
   }
 `
 const RightSection = styled.div`
   display: flex;
-  column-gap: 1em;
-  padding: 6px 12px;
-  @media (max-width: 768px) {
-    order: 2;
-  }
+  column-gap: 1.2em;
+  padding: 3px 6px;
 `
 function NavBar() {
   return (
     <NavBarContainer>
-      <LeftSection>
-        <Logo />
-      </LeftSection>
-      <MiddleSection>
+      <NavDeskContainer>
+        <LeftSection>
+          <Logo />
+        </LeftSection>
+        <MiddleSection>
+          <Search />
+        </MiddleSection>
+        <RightSection>
+          <Cart />
+          <User />
+        </RightSection>
+      </NavDeskContainer>
+      <NavMobContainer>
         <Search />
-      </MiddleSection>
-      <RightSection>
-        <Cart />
-        <User />
-      </RightSection>
+      </NavMobContainer>
     </NavBarContainer>
   )
 }

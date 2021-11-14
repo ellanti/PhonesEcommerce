@@ -4,11 +4,12 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Header from './component/layout/Header'
 import Footer from './component/layout/Footer'
 import Home from './component/Home/Home'
-import Home1 from './component/Home1'
+import Home1 from './component/responsive/Home1'
 import { Provider } from 'react-redux'
 import store from './redux/store'
 import PhonePage from './component/Phone/PhonePage'
 import NavBar from './component/responsive/NavBar'
+import Banner from './component/responsive/Banner'
 
 axios.defaults.baseURL = 'http://localhost:5000/api/v1'
 type Response = {
