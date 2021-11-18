@@ -5,7 +5,7 @@ const ImgDiv = styled.div`
   min-width: 240px;
   overflow: hidden;
   position: relative;
-  height: 40vh;
+  height: 48vh;
   border: 6px #fab720;
   border-style: solid none;
 `
@@ -16,7 +16,7 @@ const Image = styled.img`
 `
 const TextDiv = styled.div`
   position: absolute;
-  top: 50%;
+  top: 66%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: rgb(61, 61, 61);

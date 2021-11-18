@@ -4,11 +4,15 @@ import Products from './Products'
 import styled from 'styled-components'
 
 const ContentDiv = styled.div`
-  margin: 0.3em 0.3em;
+  padding: 3px 6px;
+  margin: 0.6em 0.6em;
   display: flex;
   justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 0.3em;
+  gap: 0.6em;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: center;
+  }
 `
 function Home1() {
   return (

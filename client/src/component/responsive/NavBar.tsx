@@ -5,6 +5,9 @@ import Cart from '../NavElements/Cart'
 import User from '../NavElements/User'
 
 const NavBarContainer = styled.div`
+  position: fixed;
+  top: 0;
+  z-index: 1;
   width: 100%;
   min-width: 240px;
   overflow: hidden;
