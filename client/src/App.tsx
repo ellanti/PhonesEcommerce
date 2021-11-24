@@ -3,8 +3,8 @@ import GoogleLogin from 'react-google-login'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Header from './component/layout/Header'
 import Footer from './component/layout/Footer'
-import Home from './component/Home/Home'
-import Home1 from './component/responsive/Home1'
+import Home from './component/responsive/Pages/Home'
+import Search from './component/responsive/Pages/Search'
 import { Provider } from 'react-redux'
 import store from './redux/store'
 import PhonePage from './component/Phone/PhonePage'
@@ -48,10 +48,10 @@ function App() {
       <Provider store={store}>
         <Router>
           <NavBar />
-          <Route exact path="/" component={Home1} />
+          <Route exact path="/" component={Home} />
           {/* <Route exact path="/" component={Home} /> */}
           <Route path="/phone/:phoneId" component={PhonePage} />
-          <Route path="/phones/:keyword" component={Home} />
+          <Route path="/search/:keyword" component={Search} />
         </Router>
         {/* <Footer /> */}
       </Provider>

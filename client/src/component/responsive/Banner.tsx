@@ -2,11 +2,12 @@ import styled from 'styled-components'
 
 const ImgDiv = styled.div`
   width: 100%;
+  margin-top: 90px;
   min-width: 240px;
   overflow: hidden;
   position: relative;
-  height: 48vh;
-  border: 6px #fab720;
+  height: 60vh;
+  border: 1px #fab720;
   border-style: solid none;
 `
 const Image = styled.img`
@@ -58,7 +59,7 @@ function Banner() {
         </p>
         <ShopName>MOBILE CORNER</ShopName>
       </TextDiv>
-      <Image src="HomePic.jpg" alt="mobile" />
+      <Image src="/images/HomePic7.jpg" alt="mobile" />
     </ImgDiv>
   )
 }

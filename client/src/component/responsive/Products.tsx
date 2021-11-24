@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react'
-import styled from 'styled-components'
+import { styled } from '@mui/material/styles'
+import Pagination from '@mui/material/Pagination'
 import { useParams } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUrl } from '../../redux/Products/ProductsAction'
@@ -8,19 +9,30 @@ import { RootState } from '../../redux/store'
 import { Product, ProductsResponse } from '../../redux/Products/ProductsTypes'
 import ProductCard from '../Home/ProductCard'
 
-const ProductsDiv = styled.div`
-  border: 1px solid #ecf0f1;
-  width: 72%;
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-`
-const StyledDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.6em;
-`
+const ProductsDiv = styled('div')({
+  border: '1px solid #ecf0f1',
+  width: '72%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  '@media (max-width: 768px)': {
+    width: '100%',
+  },
+})
+
+const StyledDiv = styled('div')({
+  marginTop: '5vh',
+  display: 'flex',
+  justifyContent: 'center',
+  flexWrap: 'wrap',
+  gap: '0.6em',
+})
+
+const StyledPagination = styled(Pagination)({
+  margin: '5vh',
+})
+
 const BASE_HOME_URL = 'http://localhost:5000/api/v1/phones/'
 
 function Products() {
@@ -51,7 +63,7 @@ function Products() {
     products = productsResponse.phones
     const resultPerPage = productsResponse.productsPerPage
     const productCount = productsResponse.productsCount
-    const noPages = productCount / resultPerPage
+    const noPages = Math.ceil(productCount / resultPerPage)
     console.log(
       'resultsPerPage, productCount, noPages',
       resultPerPage,
@@ -67,6 +79,15 @@ function Products() {
           return <ProductCard key={product._id} product={product}></ProductCard>
         })}
       </StyledDiv>
+      <div>
+        <StyledPagination
+          count={paginationCount}
+          shape="rounded"
+          variant="outlined"
+          page={page}
+          onChange={setPageNo}
+        />
+      </div>
     </ProductsDiv>
   )
 }

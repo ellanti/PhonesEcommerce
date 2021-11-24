@@ -35,7 +35,7 @@ function Logo() {
   return (
     <LogoWrapper>
       <LogoImg>
-        <img src="logoNew.png" alt="Mobile Corner Logo" />
+        <img src="/images/logoNew.png" alt="Mobile Corner Logo" />
       </LogoImg>
       <LogoText>
         MOBILE <span>CORNER</span>
