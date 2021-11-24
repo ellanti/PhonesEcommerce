@@ -38,7 +38,10 @@
     "web-vitals": "^1.1.2"
   },
   "devDependencies": {
-    "immer": ">=9.0.6"
+    "immer": ">=9.0.6",
+    "json-schema": ">=0.4.0",
+    "ansi-regex": ">=5.0.1",
+    "glob-parent": ">=5.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
