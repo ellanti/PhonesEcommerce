@@ -1,7 +1,9 @@
 import { SyntheticEvent } from 'react'
 import Slider from '@mui/material/Slider'
 import { styled } from '@mui/material/styles'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../redux/store'
+import { setPriceRange } from '../../redux/PriceRange/PriceRangeAction'
 
 const PriceSlider = styled(Slider)({
   width: '50%',
@@ -35,16 +37,19 @@ const PriceHeading = styled('div')({
 })
 
 function PriceFilter() {
-  const [priceRange, setPriceRange] = useState<number[]>([1, 1000])
+  //const [priceRange, setPriceRange] = useState<number[]>([1, 1000])
+  const priceRange = useSelector(
+    (state: RootState) => state.priceRange.priceRange
+  )
+  const dispatch = useDispatch()
 
   const handlePriceRange = (
     event: Event | SyntheticEvent<Element, Event>,
     newValue: number | number[]
   ) => {
-    setPriceRange(newValue as number[])
+    dispatch(setPriceRange(newValue))
   }
 
-  console.log('PriceRange:', priceRange)
   function priceValueText(value: number) {
     return `${value}€`
   }

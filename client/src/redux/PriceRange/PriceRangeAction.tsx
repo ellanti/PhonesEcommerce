@@ -6,14 +6,14 @@ export type SetPriceRange = {
   priceRange: number[]
 }
 
-export const setPrice = (priceRange: number[]) => {
+export const setPrice = (priceRange: number | number[]) => {
   return {
     type: CHANGE_PRICE_RANGE,
     priceRange: priceRange,
   }
 }
 
-export const setPriceRange = (priceRange: number[]) => {
+export const setPriceRange = (priceRange: number | number[]) => {
   return (dispatch: Dispatch) => {
     dispatch(setPrice(priceRange))
   }
