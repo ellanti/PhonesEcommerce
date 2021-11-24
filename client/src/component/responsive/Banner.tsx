@@ -6,8 +6,13 @@ const ImgDiv = styled.div`
   min-width: 240px;
   overflow: hidden;
   position: relative;
+<<<<<<< HEAD
   height: 60vh;
   border: 1px #fab720;
+=======
+  height: 40vh;
+  border: 6px #fab720;
+>>>>>>> parent of 6cdeaaf... products display
   border-style: solid none;
 `
 const Image = styled.img`
@@ -17,7 +22,7 @@ const Image = styled.img`
 `
 const TextDiv = styled.div`
   position: absolute;
-  top: 66%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: rgb(61, 61, 61);
