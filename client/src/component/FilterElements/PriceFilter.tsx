@@ -1,7 +1,7 @@
 import { SyntheticEvent } from 'react'
 import Slider from '@mui/material/Slider'
 import { styled } from '@mui/material/styles'
-import { useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 const PriceSlider = styled(Slider)({
   width: '50%',

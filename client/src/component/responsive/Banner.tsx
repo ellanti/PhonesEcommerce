@@ -2,17 +2,11 @@ import styled from 'styled-components'
 
 const ImgDiv = styled.div`
   width: 100%;
-  margin-top: 90px;
   min-width: 240px;
   overflow: hidden;
   position: relative;
-<<<<<<< HEAD
   height: 60vh;
   border: 1px #fab720;
-=======
-  height: 40vh;
-  border: 6px #fab720;
->>>>>>> parent of 6cdeaaf... products display
   border-style: solid none;
 `
 const Image = styled.img`

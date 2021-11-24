@@ -5,7 +5,6 @@ import Filters from '../Filters'
 
 const ContentDiv = styled.div`
   padding: 3px 6px;
-  margin: 90px 0.6em;
   display: flex;
   justify-content: space-around;
   gap: 0.6em;
