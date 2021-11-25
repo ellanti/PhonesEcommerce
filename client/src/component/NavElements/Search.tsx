@@ -38,6 +38,7 @@ const Search: React.FC<PrimarySearchProps> = ({ history }) => {
         type="text"
         placeholder="Search..."
         name="search"
+        spellCheck={false}
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
         onKeyDown={searchEnterHandler}
