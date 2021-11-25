@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, KeyboardEvent } from 'react'
 import styled from 'styled-components'
 import { RouteComponentProps, withRouter } from 'react-router'
 
@@ -18,7 +18,7 @@ type PrimarySearchProps = RouteComponentProps
 const Search: React.FC<PrimarySearchProps> = ({ history }) => {
   const [keyword, setKeyword] = useState('')
 
-  const searchHandler = (e: React.MouseEvent<HTMLElement>) => {
+  const searchHandler = (e: React.MouseEvent<HTMLElement> | KeyboardEvent) => {
     e.preventDefault()
     history.push(`/search/${keyword}`)
     if (keyword.trim()) {
@@ -26,7 +26,11 @@ const Search: React.FC<PrimarySearchProps> = ({ history }) => {
     } else {
       history.push('/')
     }
-    // //setKeyword('')
+  }
+  const searchEnterHandler = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      searchHandler(e)
+    }
   }
   return (
     <SearchDiv>
@@ -36,6 +40,7 @@ const Search: React.FC<PrimarySearchProps> = ({ history }) => {
         name="search"
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
+        onKeyDown={searchEnterHandler}
       />
       <SearchButton type="submit" onClick={searchHandler}>
         <i className="fa fa-search"></i>

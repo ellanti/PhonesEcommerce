@@ -44,7 +44,6 @@ function Products() {
   }
 
   const url = `${BASE_HOME_URL}?keyword=${keyword}&page=${page}&price[gte]=${priceRange[0]}&price[lte]=${priceRange[1]}`
-  console.log('url:', url)
 
   useEffect(() => {
     dispatch(fetchUrl(url))
@@ -60,14 +59,8 @@ function Products() {
     products = productsResponse.phones
     const resultPerPage = productsResponse.productsPerPage
     const productCount = productsResponse.productsCount
-    const noPages = productCount / resultPerPage
-    console.log(
-      'resultsPerPage, productCount, noPages',
-      resultPerPage,
-      productCount,
-      noPages
-    )
-    paginationCount = noPages === 0 ? 1 : Math.ceil(noPages)
+    const noPages = Math.ceil(productCount / resultPerPage)
+    paginationCount = noPages === 0 ? 1 : noPages
   }
   return (
     <ProductsDiv>
