@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import Banner from '../Banner'
 import Products from '../Products'
 import styled from 'styled-components'
@@ -10,6 +12,7 @@ const ContentDiv = styled.div`
   gap: 0.3em;
 `
 function Home1() {
+  useEffect(() => {}, [])
   return (
     <div>
       <Banner></Banner>

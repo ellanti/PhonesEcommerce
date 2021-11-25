@@ -40,9 +40,9 @@ function Products() {
 
   const setPageNo = (event: ChangeEvent<unknown>, value: number) => {
     setPage(value)
-    console.log('PageNumber:', page)
   }
 
+  console.log('keyword:', keyword)
   const url = `${BASE_HOME_URL}?keyword=${keyword}&page=${page}&price[gte]=${priceRange[0]}&price[lte]=${priceRange[1]}`
 
   useEffect(() => {
@@ -50,7 +50,7 @@ function Products() {
   }, [dispatch, keyword, page, priceRange])
 
   const ProductsState = useSelector((state: RootState) => state.product)
-  const { loading, data, error } = ProductsState
+  const { data } = ProductsState
 
   let products: Product[] = []
   let paginationCount = 1
