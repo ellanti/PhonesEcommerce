@@ -7,6 +7,7 @@ import { fetchUrl } from '../../redux/Products/ProductsAction'
 import { RootState } from '../../redux/store'
 import { Product, ProductsResponse } from '../../redux/Products/ProductsTypes'
 import ProductCard from '../Home/ProductCard'
+import { Http2ServerRequest } from 'http2'
 
 const ProductsDiv = styled.div`
   display: flex;
@@ -25,6 +26,9 @@ const StyledDiv = styled.div`
   flex-wrap: wrap;
   gap: 0.6em;
 `
+const NoProduct = styled.h2`
+  color: #1d426f;
+`
 const StyledPagination = styled(Pagination)({
   margin: '0.6em',
 })
@@ -42,7 +46,6 @@ function Products() {
     setPage(value)
   }
 
-  console.log('keyword:', keyword)
   const url = `${BASE_HOME_URL}?keyword=${keyword}&page=${page}&price[gte]=${priceRange[0]}&price[lte]=${priceRange[1]}`
 
   useEffect(() => {
@@ -53,29 +56,39 @@ function Products() {
   const { data } = ProductsState
 
   let products: Product[] = []
+  let productCount = 0
   let paginationCount = 1
+
   if (data) {
     const productsResponse = data as ProductsResponse
     products = productsResponse.phones
     const resultPerPage = productsResponse.productsPerPage
-    const productCount = productsResponse.productsCount
+    productCount = productsResponse.productsCount
     const noPages = Math.ceil(productCount / resultPerPage)
     paginationCount = noPages === 0 ? 1 : noPages
   }
   return (
     <ProductsDiv>
-      <StyledDiv>
-        {products.map((product: Product) => {
-          return <ProductCard key={product._id} product={product}></ProductCard>
-        })}
-      </StyledDiv>
-      <StyledPagination
-        count={paginationCount}
-        shape="rounded"
-        variant="outlined"
-        page={page}
-        onChange={setPageNo}
-      />
+      {productCount ? (
+        <div>
+          <StyledDiv>
+            {products.map((product: Product) => {
+              return (
+                <ProductCard key={product._id} product={product}></ProductCard>
+              )
+            })}
+          </StyledDiv>
+          <StyledPagination
+            count={paginationCount}
+            shape="rounded"
+            variant="outlined"
+            page={page}
+            onChange={setPageNo}
+          />
+        </div>
+      ) : (
+        <NoProduct> No Phones to display </NoProduct>
+      )}
     </ProductsDiv>
   )
 }
