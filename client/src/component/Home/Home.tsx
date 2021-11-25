@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react'
-import { styled } from '@mui/material/styles'
+import styled from 'styled-components'
 import Pagination from '@mui/material/Pagination'
 import ProductCard from './ProductCard'
 import { Product, ProductsResponse } from '../../redux/Products/ProductsTypes'

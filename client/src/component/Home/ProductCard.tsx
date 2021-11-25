@@ -1,6 +1,6 @@
 import Link from '@mui/material/Link'
 import Rating from '@mui/material/Rating'
-import { styled } from '@mui/material/styles'
+import styled from 'styled-components'
 
 const PhoneProductCard = styled('div')({
   width: '210px',

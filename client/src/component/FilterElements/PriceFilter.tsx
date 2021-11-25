@@ -1,6 +1,6 @@
 import { SyntheticEvent } from 'react'
 import Slider from '@mui/material/Slider'
-import { styled } from '@mui/material/styles'
+import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { setPriceRange } from '../../redux/PriceRange/PriceRangeAction'

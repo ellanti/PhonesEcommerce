@@ -5,7 +5,7 @@ import { Product } from '../../redux/Products/ProductsTypes'
 import Loader from '../layout/Loader/Loader'
 import ErrorPage from '../layout/Error'
 import Box from '@mui/material/Box'
-import { styled } from '@mui/material/styles'
+import styled from 'styled-components'
 
 const PhoneBox = styled(Box)({
   display: 'flex',
