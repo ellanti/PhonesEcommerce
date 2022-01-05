@@ -5,11 +5,9 @@ import Products from '../Products'
 import styled from 'styled-components'
 
 const ContentDiv = styled.div`
-  margin: 0.3em 0.3em;
+  width: 100%;
+  margin: 0.6em 0.6em;
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 0.3em;
 `
 function Home1() {
   useEffect(() => {}, [])

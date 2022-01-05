@@ -24,7 +24,7 @@ const PhoneProductCard = styled('div')({
 const PhoneDetails = styled('div')({
   color: '#1d426f',
   fontWeight: 'bold',
-  fontSize: '1.8vh',
+  fontSize: '12px',
   fontFamily: 'Montserrat, sans-serif',
   display: 'flex',
   flexDirection: 'column',
@@ -36,7 +36,7 @@ const RatingSpan = styled('span')({
   paddingBottom: '2px',
   color: '#fab720',
   fontFamily: 'Montserrat, sans-serif',
-  fontSize: '0.9vmax',
+  fontSize: '12px',
 })
 
 function ProductCard({ product }: { product: any }) {

@@ -13,18 +13,27 @@ const PhoneBox = styled(Box)({
   alignItems: 'center',
   justifyContent: 'center',
   columnGap: '100px',
-  height: '60vh',
-  width: '60vw',
-  margin: '2vw 20vw',
+  height: '80vh',
+  width: '80vw',
+  margin: '2vw auto',
   boxShadow: '0 0 5px rgba(15, 15, 15, 0.26)',
+  ['@media(max-width: 768px)']: {
+    flexDirection: 'column',
+  },
 })
-const PhoneImg = styled('img')({
+const PhoneImg = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+})
+
+const PImg = styled('img')({
   objectFit: 'cover',
   height: '50vh',
 })
 const PName = styled('p')({
   fontFamily: 'Crimson Text',
-  fontSize: '2vw',
+  fontSize: '2vmax',
 })
 const PhoneData = styled('div')({
   display: 'flex',
@@ -49,7 +58,9 @@ function PhonePage() {
         <ErrorPage />
       ) : product ? (
         <PhoneBox>
-          <PhoneImg src={product.images[0]} alt={product.model} />
+          <PhoneImg>
+            <PImg src={product.images[0]} alt={product.model} />
+          </PhoneImg>
 
           <PhoneData>
             <PName>{product.model}</PName>

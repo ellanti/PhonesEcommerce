@@ -13,6 +13,7 @@ const ContentDiv = styled.div`
     justify-content: center;
   }
 `
+
 function Search() {
   useEffect(() => {
     window.scrollTo(0, 0)

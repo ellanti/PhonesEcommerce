@@ -7,15 +7,13 @@ import { fetchUrl } from '../../redux/Products/ProductsAction'
 import { RootState } from '../../redux/store'
 import { Product, ProductsResponse } from '../../redux/Products/ProductsTypes'
 import ProductCard from '../Home/ProductCard'
-import { Http2ServerRequest } from 'http2'
 
 const ProductsDiv = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-
   border: 1px solid #ecf0f1;
-  width: 72%;
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -68,9 +66,9 @@ function Products() {
     paginationCount = noPages === 0 ? 1 : noPages
   }
   return (
-    <ProductsDiv>
+    <div>
       {productCount ? (
-        <div>
+        <ProductsDiv>
           <StyledDiv>
             {products.map((product: Product) => {
               return (
@@ -85,11 +83,11 @@ function Products() {
             page={page}
             onChange={setPageNo}
           />
-        </div>
+        </ProductsDiv>
       ) : (
         <NoProduct> No Phones to display </NoProduct>
       )}
-    </ProductsDiv>
+    </div>
   )
 }
 
